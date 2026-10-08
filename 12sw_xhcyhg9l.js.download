@@ -1,0 +1,282 @@
+;!function(){try { var e="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof global?global:"undefined"!=typeof window?window:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&((e._debugIds|| (e._debugIds={}))[n]="bfbc7d8b-1717-ed97-b312-6e6b7a0a3c64")}catch(e){}}();
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,250087,e=>{"use strict";var t=e.i(971131),a=e.i(389959);let r=a.default.forwardRef(function(e,r){let i=e.children,[n,s]=(0,a.useState)(null),l=(0,a.useRef)(null),o=(0,a.useRef)(void 0);return((0,a.useImperativeHandle)(r,()=>(e,a)=>{(0,t.flushSync)(()=>{s(i(e))}),a(l.current),o.current=requestAnimationFrame(()=>{s(null)})},[i]),(0,a.useEffect)(()=>()=>{o.current&&cancelAnimationFrame(o.current)},[]),n)?a.default.createElement("div",{style:{zIndex:-100,position:"absolute",top:0,left:-1e5},ref:l},n):null});e.s(["DragPreview",0,r])},837512,e=>{"use strict";var t=e.i(346319),a=e.i(226949),r=e.i(434080),i=e.i(675654),n=e.i(389959),s=e.i(75518),l=e.i(467207),o=e.i(310422),u=e.i(42771),d=e.i(278052);let c={keyboard:{start:"dragDescriptionKeyboard",end:"endDragKeyboard"},touch:{start:"dragDescriptionTouch",end:"endDragTouch"},virtual:{start:"dragDescriptionVirtual",end:"endDragVirtual"}};e.s(["useDrag",0,function(e){var p;let{hasDragButton:g,isDisabled:f}=e,m=(0,d.useLocalizedStringFormatter)((p=i.default)&&p.__esModule?p.default:p,"@react-aria/dnd"),A=(0,n.useRef)({options:e,x:0,y:0}).current;A.options=e;let I=(0,n.useRef)(!1),[M,E]=(0,n.useState)(!1),h=e=>{I.current=e,E(e)},{addGlobalListener:v,removeAllGlobalListeners:P}=(0,s.useGlobalListeners)(),T=(0,n.useRef)(null);(0,l.useLayoutEffect)(()=>()=>{if(I.current){if("function"==typeof A.options.onDragEnd){let e={type:"dragend",x:0,y:0,dropOperation:a.DROP_EFFECT_TO_DROP_OPERATION[r.globalDropEffect||"none"]};A.options.onDragEnd(e)}h(!1),(0,r.setGlobalAllowedDropOperations)(a.DROP_OPERATION.none),(0,r.setGlobalDropEffect)(void 0)}},[A]);let y=e=>{if("function"==typeof A.options.onDragStart){let t=e.getBoundingClientRect();A.options.onDragStart({type:"dragstart",x:t.x+t.width/2,y:t.y+t.height/2})}(0,t.beginDragging)({element:e,items:A.options.getItems(),allowedDropOperations:"function"==typeof A.options.getAllowedDropOperations?A.options.getAllowedDropOperations():["move","copy","link"],onDragEnd(e){h(!1),"function"==typeof A.options.onDragEnd&&A.options.onDragEnd(e)}},m),h(!0)},D=(0,r.useDragModality)(),R=M?c[D].end:c[D].start,_=(0,o.useDescription)(m.format(R)),x={};return(g||(x={..._,onPointerDown(e){if(T.current=(0,u.isVirtualPointerEvent)(e.nativeEvent)?"virtual":e.pointerType,e.width<1&&e.height<1)T.current="virtual";else{let t=e.currentTarget.getBoundingClientRect(),a=e.clientX-t.x,r=e.clientY-t.y,i=t.width/2,n=t.height/2;.5>=Math.abs(a-i)&&.5>=Math.abs(r-n)?T.current="virtual":T.current=e.pointerType}},onKeyDownCapture(e){e.target===e.currentTarget&&"Enter"===e.key&&(e.preventDefault(),e.stopPropagation())},onKeyUpCapture(e){e.target===e.currentTarget&&"Enter"===e.key&&(e.preventDefault(),e.stopPropagation(),y(e.target))},onClick(e){((0,u.isVirtualClick)(e.nativeEvent)||"virtual"===T.current)&&(e.preventDefault(),e.stopPropagation(),y(e.target))}}),f)?{dragProps:{draggable:"false"},dragButtonProps:{},isDragging:!1}:{dragProps:{...x,draggable:"true",onDragStart:t=>{var i;if(t.defaultPrevented)return;if(t.stopPropagation(),"virtual"===T.current){t.preventDefault(),y(t.target),T.current=null;return}"function"==typeof e.onDragStart&&e.onDragStart({type:"dragstart",x:t.clientX,y:t.clientY});let n=e.getItems();(0,r.writeToDataTransfer)(t.dataTransfer,n);let s=a.DROP_OPERATION.all;if("function"==typeof e.getAllowedDropOperations){let t=e.getAllowedDropOperations();for(let e of(s=a.DROP_OPERATION.none,t))s|=a.DROP_OPERATION[e]||a.DROP_OPERATION.none}(0,r.setGlobalAllowedDropOperations)(s),t.dataTransfer.effectAllowed=a.EFFECT_ALLOWED[s]||"none","function"==typeof(null==(i=e.preview)?void 0:i.current)&&e.preview.current(n,e=>{if(!e)return;let a=e.getBoundingClientRect(),r=t.currentTarget.getBoundingClientRect(),i=t.clientX-r.x,n=t.clientY-r.y;(i>a.width||n>a.height)&&(i=a.width/2,n=a.height/2);let s=2*Math.round(a.height/2);e.style.height=`${s}px`,t.dataTransfer.setDragImage(e,i,n)}),v(window,"drop",e=>{e.preventDefault(),e.stopPropagation(),console.warn("Drags initiated from the React Aria useDrag hook may only be dropped on a target created with useDrop. This ensures that a keyboard and screen reader accessible alternative is available.")},{once:!0}),A.x=t.clientX,A.y=t.clientY,requestAnimationFrame(()=>{h(!0)})},onDrag:t=>{t.stopPropagation(),(t.clientX!==A.x||t.clientY!==A.y)&&("function"==typeof e.onDragMove&&e.onDragMove({type:"dragmove",x:t.clientX,y:t.clientY}),A.x=t.clientX,A.y=t.clientY)},onDragEnd:t=>{if(t.stopPropagation(),"function"==typeof e.onDragEnd){let i={type:"dragend",x:t.clientX,y:t.clientY,dropOperation:a.DROP_EFFECT_TO_DROP_OPERATION[t.dataTransfer.dropEffect]};r.globalDropEffect&&(i.dropOperation=a.DROP_EFFECT_TO_DROP_OPERATION[r.globalDropEffect]),e.onDragEnd(i)}h(!1),P(),(0,r.setGlobalAllowedDropOperations)(a.DROP_OPERATION.none),(0,r.setGlobalDropEffect)(void 0)}},dragButtonProps:{..._,onPress:e=>{("keyboard"===e.pointerType||"virtual"===e.pointerType)&&y(e.target)}},isDragging:M}}])},160502,e=>{"use strict";var t=e.i(351623);let a=t.gql`
+    fragment ForkContextRepl on Repl {
+  id
+  title
+  description
+  org {
+    id
+  }
+}
+    `;e.s(["ForkContextReplFragmentDoc",0,a])},85085,e=>{"use strict";var t=e.i(351623),a=e.i(730029);let r=t.gql`
+    fragment LayoutHeaderAvatarDropdownCurrentUser on CurrentUser {
+  id
+  url
+  username
+  fullName
+  image
+  userSubscriptionType
+  ...CoreSubscriptionPlanStatus
+}
+    ${a.CoreSubscriptionPlanStatusFragmentDoc}`,i=t.gql`
+    fragment OrgSwitcherOrg on Org {
+  id
+  name
+  type
+  slug
+  currentUserRole
+  image
+  dealContext {
+    dealType
+    salesContactEmail
+  }
+}
+    `,n=t.gql`
+    fragment OrgSwitcherOrganizationConnectionFragment on CurrentUserOrganizationConnection {
+  items {
+    org {
+      ...OrgSwitcherOrg
+    }
+    type
+  }
+}
+    ${i}`,s=t.gql`
+    fragment OrgSwitcherCurrentUser on CurrentUser {
+  id
+  image
+  username
+  url
+  fullName
+  firstName
+  email
+  isMemberOfAnyOrg
+  userSubscriptionType
+  orgs(count: 50) {
+    __typename
+    ... on CurrentUserOrganizationConnection {
+      ...OrgSwitcherOrganizationConnectionFragment
+    }
+    ... on Error {
+      message
+    }
+    ... on NotFoundError {
+      message
+    }
+    ... on UserError {
+      message
+    }
+  }
+  ...CoreSubscriptionPlanStatus
+}
+    ${n}
+${a.CoreSubscriptionPlanStatusFragmentDoc}`;e.s(["LayoutHeaderAvatarDropdownCurrentUserFragmentDoc",0,r,"OrgSwitcherCurrentUserFragmentDoc",0,s])},530294,e=>{"use strict";e.i(683405);var t,a=e.i(761320),r=((t={}).DISABLED="disabled",t.DEFAULT_ON="defaultOn",t.DEFAULT_OFF="defaultOff",t.DEFAULT_ON_AFTER_INITIAL_PROMPT="defaultOnAfterInitialPrompt",t);let i={[a.StackBlueprint.STACK_BLUEPRINT_FULLSTACK_JS]:"defaultOn",[a.StackBlueprint.STACK_BLUEPRINT_BEST_EFFORT_FALLBACK]:"defaultOn",[a.StackBlueprint.STACK_BLUEPRINT_STREAMLIT]:"defaultOn",[a.StackBlueprint.STACK_BLUEPRINT_EXPO]:"defaultOnAfterInitialPrompt",[a.StackBlueprint.STACK_BLUEPRINT_GAMESTACK_JS]:"disabled",[a.StackBlueprint.STACK_BLUEPRINT_AGENT]:"disabled",[a.StackBlueprint.STACK_BLUEPRINT_PNPM_WORKSPACE]:"defaultOn"};e.s(["AutomatedTestingConfig",()=>r,"getAutomatedTestingConfig",0,function(e){return e?i[e]??"defaultOff":"defaultOff"}])},776208,e=>{"use strict";var t=e.i(130457),a=e.i(389959),r=e.i(632350),i=e.i(448942);e.s(["useNavigateHome",0,function(){let e=(0,t.useRouter)(),n=(0,r.default)();return(0,a.useCallback)(t=>{if(n)return e.push("/desktopApp/home2");if(t?.type==="team")return e.push((0,i.orgLinks)(t).home.href);let a=e.query.orgSlug;return"string"==typeof a&&a.length>0?e.push((0,i.orgLinks)({slug:a}).home.href):e.push("/home","/~")},[e,n])}])},338796,e=>{"use strict";e.s(["default",0,function(e){return e.replace("GraphQL error: ","")}])},700995,e=>{"use strict";var t=e.i(351623),a=e.i(764992);let r=t.gql`
+    fragment ReplEnvironmentMobileRepl on Repl {
+  id
+  title
+  description
+  url
+  ...CrosisContextRepl
+  user {
+    id
+    image
+  }
+  org {
+    id
+  }
+  rootOriginReplUrl
+  source {
+    release {
+      id
+    }
+  }
+  config {
+    isAgentRepl
+  }
+}
+    ${a.CrosisContextReplFragmentDoc}`;e.s(["ReplEnvironmentMobileReplFragmentDoc",0,r])},855763,e=>{"use strict";var t=e.i(351623),a=e.i(989074);let r=t.gql`
+    fragment BulkDeleteConfirmationModalRepl on Repl {
+  id
+  iconUrl
+  title
+  hostingDeployment {
+    ... on HostingDeployment {
+      id
+      replitAppSubdomain
+      timeCreated
+      ...BuildStatusBadgeHostingDeployment
+    }
+  }
+}
+    ${a.BuildStatusBadgeHostingDeploymentFragmentDoc}`;e.s(["BulkDeleteConfirmationModalReplFragmentDoc",0,r])},426788,e=>{"use strict";var t=e.i(908796),a=e.i(807988);a.AgentInitialBuildMode.AGENT_INITIAL_BUILD_MODE_UNSPECIFIED,a.AgentInitialBuildTier.AGENT_INITIAL_BUILD_TIER_UNSPECIFIED,t.ModelProfile.ModelProfileUnspecified,a.ModelProfile.MODEL_PROFILE_UNSPECIFIED,t.ModelProfile.ModelProfileStandard,a.ModelProfile.MODEL_PROFILE_STANDARD,t.ModelProfile.ModelProfileAdvanced,a.ModelProfile.MODEL_PROFILE_ADVANCED,t.ModelProfile.ModelProfileAdvancedFast,a.ModelProfile.MODEL_PROFILE_ADVANCED_FAST,t.AgentChatMode.Unspecified,a.AgentMode.AGENT_MODE_UNSPECIFIED,t.AgentChatMode.General,a.AgentMode.AGENT_MODE_GENERAL,t.AgentChatMode.Discussion,a.AgentMode.AGENT_MODE_DISCUSSION,t.AgentChatMode.InitialPlanning,a.AgentMode.AGENT_MODE_INITIAL_PLANNING,t.AgentChatMode.QuickEdit,a.AgentMode.AGENT_MODE_QUICK_EDIT,t.AutonomyLevel.Unspecified,a.AutonomyLevel.AUTONOMY_LEVEL_UNSPECIFIED,t.AutonomyLevel.Low,a.AutonomyLevel.AUTONOMY_LEVEL_LOW,t.AutonomyLevel.Medium,a.AutonomyLevel.AUTONOMY_LEVEL_MEDIUM,t.AutonomyLevel.High,a.AutonomyLevel.AUTONOMY_LEVEL_HIGH,t.AutonomyLevel.Max,a.AutonomyLevel.AUTONOMY_LEVEL_MAX;let r={[a.AutonomyLevel.AUTONOMY_LEVEL_UNSPECIFIED]:t.AutonomyLevel.Unspecified,[a.AutonomyLevel.AUTONOMY_LEVEL_LOW]:t.AutonomyLevel.Low,[a.AutonomyLevel.AUTONOMY_LEVEL_MEDIUM]:t.AutonomyLevel.Medium,[a.AutonomyLevel.AUTONOMY_LEVEL_HIGH]:t.AutonomyLevel.High,[a.AutonomyLevel.AUTONOMY_LEVEL_MAX]:t.AutonomyLevel.Max};e.s(["autonomyLevelMapFromAiChatEnum",0,r,"getDefaultModelProfile",0,function(e){return e?t.ModelProfile.ModelProfileAdvanced:t.ModelProfile.ModelProfileStandard},"getModelTierForAnalytics",0,function(e){return"LITE"===e?"lite":function(e){if(null!=e)return({[a.ModelProfile.MODEL_PROFILE_UNSPECIFIED]:void 0,[a.ModelProfile.MODEL_PROFILE_STANDARD]:"standard",[a.ModelProfile.MODEL_PROFILE_ADVANCED]:"advanced",[a.ModelProfile.MODEL_PROFILE_ADVANCED_FAST]:"advanced_fast"})[e]??void 0}(function(e){switch(e){case"POWER":return a.ModelProfile.MODEL_PROFILE_ADVANCED;case"TURBO":return a.ModelProfile.MODEL_PROFILE_ADVANCED_FAST;case"LITE":case"ECONOMY":return a.ModelProfile.MODEL_PROFILE_STANDARD;case"UNSPECIFIED":case void 0:return}}(e))}])},557448,e=>{"use strict";var t=e.i(351623),a=e.i(913864),r=e.i(458511),i=e.i(85085),n=e.i(575872);let s=t.gql`
+    fragment MobileWorkspaceRepl on Repl {
+  id
+  language
+  isOwner
+  title
+  iconUrl
+  rootOriginReplUrl
+  layoutState(input: {environment: mobile})
+  source {
+    release {
+      id
+      repl {
+        id
+        title
+        owner {
+          ... on User {
+            id
+            username
+          }
+        }
+      }
+    }
+  }
+  user {
+    id
+  }
+  slug
+  url
+  config {
+    gitRemoteUrl
+    isAgentRepl
+    isAgentStack
+    isExpertMode
+    isInPlanningPhase
+    zipImportSource
+    zipImportStatus
+  }
+  org {
+    id
+    slug
+  }
+  authorizations {
+    ...WorkspaceConnectAuthorization
+  }
+  ...WorkspaceToolPanesRepl
+}
+    ${a.WorkspaceConnectAuthorizationFragmentDoc}
+${r.WorkspaceToolPanesReplFragmentDoc}`,l=t.gql`
+    fragment MobileWorkspaceCurrentUser on CurrentUser {
+  id
+  email
+  timeCreated
+  isAdmin: hasRole(role: ADMIN)
+  keybindings(environment: $environment, platform: $platform) {
+    keybindings
+  }
+  ...LayoutHeaderAvatarDropdownCurrentUser
+  ...WorkspaceDoGitProviderImportCurrentUser
+  isUserActiveOnMobile
+  workspacePreferences
+}
+    ${i.LayoutHeaderAvatarDropdownCurrentUserFragmentDoc}
+${n.WorkspaceDoGitProviderImportCurrentUserFragmentDoc}`;e.s(["MobileWorkspaceCurrentUserFragmentDoc",0,l,"MobileWorkspaceReplFragmentDoc",0,s])},567307,e=>{"use strict";var t=e.i(351623),a=e.i(748538),r=e.i(299020);let i={},n=t.gql`
+    fragment ReplInfoEditFormRepl on Repl {
+  ...EditReplFormRepl
+  id
+  title
+  description
+  isPrivate
+  iconUrl
+  publishedAs
+  templateLabel
+  org {
+    id
+    type
+  }
+  templateInfo {
+    iconUrl
+  }
+  authorizations {
+    editMetadata {
+      isAuthorized
+      message
+    }
+    editVisibility {
+      isAuthorized
+      code
+      message
+    }
+    editTemplateMetadata {
+      isAuthorized
+      message
+    }
+  }
+}
+    ${a.EditReplFormReplFragmentDoc}`,s=t.gql`
+    mutation ReplInfoEditFormUpdateRepl($input: UpdateReplInput!) {
+  updateRepl(input: $input) {
+    repl {
+      id
+      ...ReplInfoEditFormRepl
+    }
+  }
+}
+    ${n}`;e.s(["ReplInfoEditFormReplFragmentDoc",0,n,"useReplInfoEditFormUpdateReplMutation",0,function(e){let t={...i,...e};return r.useMutation(s,t)}])},845772,e=>{"use strict";var t=e.i(276385),a=e.i(389959),r=e.i(908796),i=e.i(567307),n=e.i(269848),s=e.i(403649),l=e.i(371884),o=e.i(320216);e.i(214847);var u=e.i(20397),d=e.i(864300),c=e.i(402841),p=e.i(270749),g=e.i(27923),f=e.i(713443),m=e.i(108501),A=e.i(72495),I=e.i(214381);function M({message:e,id:a}){return(0,t.jsxs)(I.View,{id:a,clsx:(0,g.tw)("flex-row items-center gap-100"),children:[(0,t.jsx)(s.default,{clsx:(0,g.tw)(g.tw.designSystemDeviation("text-(--accent-negative-stronger)"))}),(0,t.jsx)(I.View,{clsx:(0,g.tw)("grow shrink"),children:(0,t.jsx)(A.Text,{variant:"small",clsx:(0,g.tw)(g.tw.designSystemDeviation("text-(--accent-negative-stronger)")),children:e})})]})}e.s(["EditReplForm",0,function({repl:e,onClose:s,autoSizeDescription:E=!0}){let h=(0,d.useIntl)(),{showConfirm:v,showError:P}=(0,o.default)(),[T,{loading:y}]=(0,i.useReplInfoEditFormUpdateReplMutation)({onError:e=>{P(e.message)}}),D=(0,l.useFormField)(e.title,e=>{let t=e.trim();return 0===t.length?{message:h.formatMessage({id:"workspace.replInfoNameRequired",defaultMessage:"Please enter a name"})}:t.length>60?{message:h.formatMessage({id:"workspace.replInfoNameTooLong",defaultMessage:"Name must be {max} characters or less"},{max:60})}:void 0}),R=(0,l.useFormField)(e.description??"",e=>{if(e.length>c.REPL_DESCRIPTION_MAX_LENGTH)return{message:h.formatMessage({id:"workspace.replInfoDescriptionTooLong",defaultMessage:"Description must be {max} characters or less"},{max:c.REPL_DESCRIPTION_MAX_LENGTH})}}),[_,x]=(0,a.useState)(e.templateLabel),[b,C]=(0,a.useState)(!1),k=e.title,w=e.description??"",S=e.templateLabel,O=e.publishedAs===r.PublishedReplKind.Template,L=(0,a.useId)(),U=(0,a.useId)(),j=(0,a.useId)(),F=(0,a.useId)(),N=(0,a.useId)(),B=!!D.error||!!R.error,G=D.value!==k||R.value!==w||_!==S,V=async()=>{if(!y&&null==D.validate()&&null==R.validate())try{await T({variables:{input:{id:e.id,title:D.value.trim(),description:R.value,templateLabel:e.authorizations.editTemplateMetadata.isAuthorized?_:void 0}}}),v(h.formatMessage({id:"workspace.replInfoDetailsUpdated",defaultMessage:"App details updated"})),s?.()}catch(e){}};return(0,t.jsxs)(I.View,{clsx:(0,g.tw)("gap-400"),children:[(0,t.jsx)(A.Header,{level:2,variant:"subheadBig",children:(0,t.jsx)(u.FormattedMessage,{id:"workspace.replInfoProjectDetailsHeading",defaultMessage:"Project details"})}),(0,t.jsx)(p.ReplIconInput,{replId:e.id,authz:e.authorizations.editMetadata,initialIconUrl:e.iconUrl,originIconUrl:e.templateInfo?.iconUrl??e.iconUrl}),(0,t.jsxs)(I.View,{clsx:(0,g.tw)("gap-100"),children:[(0,t.jsx)("label",{htmlFor:L,children:(0,t.jsx)(A.Text,{variant:"small",color:"dimmer",multiline:!1,children:(0,t.jsx)(u.FormattedMessage,{id:"workspace.replInfoNameLabel",defaultMessage:"Name"})})}),(0,t.jsx)(m.Input,{size:"default",disabled:!e.authorizations.editMetadata.isAuthorized,maxLength:60,value:D.value,onChange:e=>D.setValue(e.target.value),onFocus:()=>C(!0),spellCheck:!1,id:L,"aria-describedby":U,dataCy:"ws-repl-info-title-input"}),D.value.length>=60?(0,t.jsx)(M,{message:h.formatMessage({id:"workspace.replInfoCharLimitReached",defaultMessage:"You've reached the {max} character limit"},{max:60})}):null,D.error?(0,t.jsx)(M,{message:D.error.message,id:U}):null]}),(0,t.jsxs)(I.View,{clsx:(0,g.tw)("gap-100"),children:[(0,t.jsx)("label",{htmlFor:j,children:(0,t.jsx)(A.Text,{variant:"small",color:"dimmer",multiline:!1,children:(0,t.jsx)(u.FormattedMessage,{id:"workspace.replInfoDescriptionLabel",defaultMessage:"Description"})})}),(0,t.jsx)(m.MultiLineInput,{constrainHeight:!0,disabled:!e.authorizations.editMetadata.isAuthorized,maxLength:c.REPL_DESCRIPTION_MAX_LENGTH,value:R.value,onChange:e=>R.setValue(e.target.value),onFocus:()=>C(!0),placeholder:h.formatMessage({id:"workspace.replInfoDescriptionPlaceholder",defaultMessage:"What does this App do?"}),autoSize:E,id:j,"aria-describedby":F}),R.value.length>=c.REPL_DESCRIPTION_MAX_LENGTH?(0,t.jsx)(M,{message:h.formatMessage({id:"workspace.replInfoCharLimitReached",defaultMessage:"You've reached the {max} character limit"},{max:c.REPL_DESCRIPTION_MAX_LENGTH})}):null,R.error?(0,t.jsx)(M,{message:R.error.message,id:F}):null]}),O&&e.authorizations.editTemplateMetadata.isAuthorized?(0,t.jsxs)(I.View,{clsx:(0,g.tw)("gap-100"),children:[(0,t.jsx)("label",{htmlFor:N,children:(0,t.jsx)(A.Text,{variant:"small",color:"dimmer",multiline:!1,children:(0,t.jsx)(u.FormattedMessage,{id:"workspace.replInfoTemplateLabel",defaultMessage:"Template label"})})}),(0,t.jsx)(m.Input,{size:"default",value:_,maxLength:60,placeholder:h.formatMessage({id:"workspace.replInfoTemplateLabel",defaultMessage:"Template label"}),spellCheck:!1,onChange:e=>x(e.target.value),onFocus:()=>C(!0),id:N})]}):null,b?(0,t.jsx)(I.View,{clsx:(0,g.tw)("flex-row justify-logical-end gap-200"),children:(0,t.jsx)(f.Button,{text:h.formatMessage({id:"workspace.replInfoSaveChanges",defaultMessage:"Save changes"}),colorway:"primary",onClick:V,disabled:y||B||!G||!e.authorizations.editMetadata.isAuthorized,iconLeft:y?(0,t.jsx)(n.default,{}):void 0,dataCy:"repl-info-save-changes-button"})}):null]})}])},160675,e=>{"use strict";var t=e.i(351623),a=e.i(344480);e.i(975473);let r={},i=t.gql`
+    query ProjectAgentPublishCapability($replId: String!) {
+  getRepl(id: $replId) {
+    ... on Repl {
+      id
+      authorizations {
+        configureAgentPublish {
+          isAuthorized
+        }
+      }
+    }
+  }
+}
+    `;e.s(["useProjectAgentPublishCapabilityQuery",0,function(e){let t={...r,...e};return a.useQuery(i,t)}])},605161,e=>{"use strict";var t=e.i(276385),a=e.i(389959),r=e.i(160675),i=e.i(709485),n=e.i(320216);e.i(214847);var s=e.i(864300),l=e.i(415541),o=e.i(577671),u=e.i(27923),d=e.i(476282),c=e.i(72495);e.s(["ProjectAgentPublishSetting",0,function({replId:e}){let p=(0,s.useIntl)(),g=(0,a.useId)(),{showError:f}=(0,n.default)(),{loading:m,agentSettings:A,updateSettings:I}=(0,o.useCurrentUserReplSettings)(e),{data:M,loading:E,error:h}=(0,r.useProjectAgentPublishCapabilityQuery)({variables:{replId:e}}),[v,P]=(0,a.useState)(!1),T=M?.getRepl.__typename==="Repl"&&M.getRepl.authorizations.configureAgentPublish.isAuthorized,y=async e=>{P(!0);let t=await I({agentSettings:{isAutoPublishEnabled:e}});(P(!1),t)?(0,l.trackV2)(i.eventsV2.AGENT_SETTINGS_UPDATED,{action:"auto_publish_toggled",enabled:e,settings_mode:"build"}):f(p.formatMessage({id:"workspace.replInfoAgentPublishSaveError",defaultMessage:"Couldn't save Agent publish settings. Please try again."}))},D=p.formatMessage({id:"workspace.agentSettingsAutoPublishTitle",defaultMessage:"Enable Agent publish"});return(0,t.jsxs)("div",{clsx:(0,u.tw)("flex items-center justify-between gap-400"),children:[(0,t.jsxs)("div",{clsx:(0,u.tw)("flex min-w-0 flex-1 flex-col"),children:[(0,t.jsx)(c.Text,{children:D}),(0,t.jsx)(c.Text,{id:g,variant:"small",color:"dimmest",children:p.formatMessage({id:"workspace.agentSettingsAutoPublishDescription",defaultMessage:"Agent publishes when prompted by you"})})]}),(0,t.jsx)(d.Switch,{"aria-label":D,"aria-describedby":g,dataAnalyticsId:"agent_settings_auto_publish_toggle",isSelected:A?.isAutoPublishEnabled??!1,isDisabled:m||E||!!h||!T||v,onChange:y})]})}])},119840,e=>{"use strict";var t=e.i(276385),a=e.i(389959),r=e.i(694857),i=e.i(342942),n=e.i(859025),s=e.i(739261),l=e.i(153866),o=e.i(884214);e.i(214847);var u=e.i(864300),d=e.i(605161),c=e.i(259563),p=e.i(27923),g=e.i(884102),f=e.i(72495);e.i(558671);var m=e.i(997227);function A({anchorRef:e,replId:I,onOpenChange:M}){let E=(0,a.useRef)(null),h=(0,u.useIntl)(),v=(0,m.useFeatureGate)("gate_agent_auto_publish",!1),P=h.formatMessage({id:"workspace.replInfoAgentSettings",defaultMessage:"Project settings"}),{overlayProps:T}=(0,r.useOverlay)({isOpen:!0,isDismissable:!0,onClose:()=>M(!1)},E),{dialogProps:y}=(0,s.useDialog)({"aria-label":P},E);(0,i.useOverlayFocusContain)();let D=(0,o.useAutoLogView)({elementId:"project_settings_popover"}),R=(0,l.useMergeRefs)([E,D]);return(0,a.useEffect)(()=>{let t=e.current;return queueMicrotask(()=>E.current?.focus()),()=>{t?.focus()}},[e]),(0,t.jsx)(g.RawPopover,{"data-analytics-id":"project_settings_popover",isOpen:!0,isNonModal:!0,triggerRef:e,placement:"bottom start",offset:4,clsx:(0,p.tw)(p.tw.designSystemDeviation("w-[min(400px,calc(100vw-16px))] max-w-[calc(100vw-16px)] max-h-[calc(100vh-16px)]")),shouldCloseOnInteractOutside:()=>!1,children:(0,t.jsx)("div",{...(0,n.mergeProps)(T,y),ref:R,tabIndex:-1,clsx:(0,p.tw)("overflow-y-auto",p.tw.designSystemDeviation("max-h-[inherit]")),children:(0,t.jsxs)("div",{clsx:(0,p.tw)("flex flex-col gap-500 p-400"),children:[(0,t.jsx)(f.Text,{children:P}),v?(0,t.jsx)(d.ProjectAgentPublishSetting,{replId:I},I):null,(0,t.jsx)(c.ProjectTaskAutomationSettingsForm,{replId:I})]})})})}e.s(["ProjectSettingsPopover",0,function({anchorRef:e,replId:a,isOpen:r,onOpenChange:i}){return r?(0,t.jsx)(A,{anchorRef:e,replId:a,onOpenChange:i}):null}])},259563,e=>{"use strict";var t=e.i(276385),a=e.i(389959),r=e.i(908796),i=e.i(709485),n=e.i(320216);e.i(214847);var s=e.i(20397),l=e.i(864300),o=e.i(415541),u=e.i(898699),d=e.i(719457),c=e.i(577671),p=e.i(27923),g=e.i(476282),f=e.i(72495);function m({dataAnalyticsId:e,isDisabled:a,isSelected:r,label:i,onChange:n}){return(0,t.jsxs)("div",{clsx:(0,p.tw)("flex items-center justify-between gap-400"),children:[(0,t.jsx)("div",{clsx:(0,p.tw)("min-w-0 flex-1"),children:(0,t.jsx)(f.Text,{children:i})}),(0,t.jsx)(g.Switch,{dataAnalyticsId:e,"aria-label":i,isSelected:r,isDisabled:a,onChange:n})]})}e.s(["ProjectTaskAutomationSettingsForm",0,function({replId:e}){let g=(0,l.useIntl)(),{showError:A}=(0,n.default)(),{loading:I,taskSettings:M,updateSettings:E}=(0,c.useCurrentUserReplSettings)(e),{value:h,loading:v}=(0,u.useLegacyAutoApprovePlan)(e),[P,T]=(0,a.useState)(!1),y=(0,d.resolveAutoApprovePlan)(M,h),D=e=>"isAutoApprovePlanEnabled"===e?y:M?.[e]??!1,R=async(e,t)=>{if(P)return;let a="isAutoApprovePlanEnabled"===e?y:M?.[e]??!1;T(!0);let n=await E({taskSettings:{[e]:t}});(T(!1),n)?"isAutoApprovePlanEnabled"===e&&(0,o.trackV2)(i.eventsV2.TASK_AUTO_APPROVAL_PREFERENCE_UPDATED,{previous_value:a,next_value:t,was_default:!M?.explicitFields.includes(r.UserReplTaskSettingsField.IsAutoApprovePlanEnabled)}):A(g.formatMessage({id:"workspace.replInfoTaskAutomationSaveError",defaultMessage:"Couldn't save task settings. Please try again."}))},_=g.formatMessage({id:"workspace.replInfoAutoApprovePlan",defaultMessage:"Automatically approve task plans"}),x=g.formatMessage({id:"workspace.replInfoAutoMergeDefault",defaultMessage:"Automatically apply changes for finished tasks"});return(0,t.jsxs)("div",{clsx:(0,p.tw)("flex flex-col gap-300"),children:[(0,t.jsxs)("div",{clsx:(0,p.tw)("flex flex-col gap-100"),children:[(0,t.jsx)(f.Text,{multiline:!1,children:(0,t.jsx)(s.FormattedMessage,{id:"workspace.replInfoTaskAutomationHeading",defaultMessage:"Task automation"})}),(0,t.jsx)(f.Text,{variant:"small",color:"dimmest",children:(0,t.jsx)(s.FormattedMessage,{id:"workspace.replInfoTaskAutomationOnlyYou",defaultMessage:"These settings only apply to you in this App."})})]}),(0,t.jsx)(m,{label:_,dataAnalyticsId:"agent_settings_auto_approve_plan_checkbox",isSelected:D("isAutoApprovePlanEnabled"),isDisabled:I||v||P,onChange:e=>R("isAutoApprovePlanEnabled",e)}),(0,t.jsx)(m,{label:x,dataAnalyticsId:"agent_settings_auto_merge_checkbox",isSelected:D("isAutoMergeEnabled"),isDisabled:I||P,onChange:e=>R("isAutoMergeEnabled",e)})]})}])},962587,e=>{"use strict";var t=e.i(351623),a=e.i(299020);let r={},i=t.gql`
+    mutation ReplInfoReplIconUpdate($input: UpdateReplInput!) {
+  updateRepl(input: $input) {
+    repl {
+      id
+      iconUrl
+    }
+  }
+}
+    `;e.s(["useReplInfoReplIconUpdateMutation",0,function(e){let t={...r,...e};return a.useMutation(i,t)}])},270749,e=>{"use strict";var t=e.i(276385),a=e.i(389959),r=e.i(962587),i=e.i(349597),n=e.i(956264),s=e.i(320216);e.i(214847);var l=e.i(20397),o=e.i(864300),u=e.i(345219),d=e.i(27923),c=e.i(713443),p=e.i(100661),g=e.i(72495),f=e.i(453199),m=e.i(214381),A=e.i(365757);e.s(["ReplIconInput",0,function({replId:e,authz:I,initialIconUrl:M,originIconUrl:E}){let h=(0,o.useIntl)(),{showError:v,showConfirm:P}=(0,s.default)(),[T,y]=(0,a.useState)(M),D=(0,a.useRef)(null),[R,{loading:_}]=(0,r.useReplInfoReplIconUpdateMutation)({onError:()=>{v(h.formatMessage({id:"workspace.replIconUpdateError",defaultMessage:"Something unexpected happened"}))},onCompleted:e=>{e.updateRepl.repl&&P(h.formatMessage({id:"workspace.replIconUpdated",defaultMessage:"App icon updated successfully"}))}}),x=T!==E?h.formatMessage({id:"workspace.replIconUploadNew",defaultMessage:"Upload new"}):h.formatMessage({id:"workspace.replIconUpload",defaultMessage:"Upload icon"}),b=(0,n.default)({onUpload:async({url:t})=>{await R({variables:{input:{id:e,iconUrl:t}}}),y(t),D.current&&(URL.revokeObjectURL(D.current),D.current=null)},onUploadPreview:()=>{P(h.formatMessage({id:"workspace.replIconUploading",defaultMessage:"Uploading App icon"}))},onError:e=>v(e.message)});(0,a.useEffect)(()=>{y(M)},[M]),(0,a.useEffect)(()=>()=>{D.current&&URL.revokeObjectURL(D.current)},[]);let C=e=>{D.current&&URL.revokeObjectURL(D.current);let t=URL.createObjectURL(e);D.current=t,y(t),b.uploadImage(e,i.ImageUploadContexts.ReplIcon)},k=async e=>{let t=e.items.filter(e=>"file"===e.kind).map(e=>e.getFile()),a=(await Promise.all(t)).filter(e=>null!==e);if(a.length>0){let e=a[0];if(!u.ACCEPTABLE_IMAGE_UPLOAD_TYPES.includes(e.type))return void v(h.formatMessage({id:"workspace.replIconUnsupportedType",defaultMessage:"Only PNG, JPEG, GIF, and WebP images are supported"}));C(e)}};return I.isAuthorized?(0,t.jsxs)(m.View,{clsx:(0,d.tw)("gap-100"),children:[(0,t.jsx)(g.Text,{variant:"small",color:"dimmer",multiline:!1,children:(0,t.jsx)(l.FormattedMessage,{id:"workspace.replIconLabel",defaultMessage:"Icon"})}),(0,t.jsx)(p.FileUploadInput,{onSelect:e=>{if(e&&e.length>0){let t=e[0];if(!u.ACCEPTABLE_IMAGE_UPLOAD_TYPES.includes(t.type))return void v(h.formatMessage({id:"workspace.replIconUnsupportedType",defaultMessage:"Only PNG, JPEG, GIF, and WebP images are supported"}));C(t)}},onDrop:k,acceptedFileTypes:u.ACCEPTABLE_IMAGE_UPLOAD_TYPES,children:(0,t.jsxs)(m.View,{clsx:(0,d.tw)("flex-row items-logical-start gap-300"),children:[(0,t.jsx)(A.default,{alt:"",size:48,iconUrl:T??""}),(0,t.jsxs)(m.View,{clsx:(0,d.tw)("items-logical-start gap-100"),children:[(0,t.jsx)(c.Button,{text:x,loading:_}),(0,t.jsx)(g.Text,{variant:"small",color:"dimmer",children:(0,t.jsx)(l.FormattedMessage,{id:"workspace.replIconShouldBeSquare",defaultMessage:"Icon should be square"})})]})]})})]}):(0,t.jsxs)(m.View,{clsx:(0,d.tw)("gap-100"),children:[(0,t.jsx)(g.Text,{variant:"small",color:"dimmer",multiline:!1,children:(0,t.jsx)(l.FormattedMessage,{id:"workspace.replIconLabel",defaultMessage:"Icon"})}),(0,t.jsxs)(m.View,{clsx:(0,d.tw)("flex-row items-logical-start gap-300"),children:[(0,t.jsx)(A.default,{alt:"",size:48,iconUrl:T??""}),(0,t.jsxs)(m.View,{clsx:(0,d.tw)("items-logical-start gap-100"),children:[(0,t.jsx)(f.Tooltip,{tooltip:h.formatMessage({id:"workspace.replIconNotAllowed",defaultMessage:"Not allowed to update icon"}),children:(0,t.jsx)(c.Button,{text:x,disabled:!0})}),(0,t.jsx)(g.Text,{variant:"small",color:"dimmer",children:(0,t.jsx)(l.FormattedMessage,{id:"workspace.replIconShouldBeSquare",defaultMessage:"Icon should be square"})})]})]})]})}])},509838,e=>{"use strict";var t=e.i(351623),a=e.i(344480);e.i(975473);let r={},i=t.gql`
+    query getWebDesignMockup($replId: String!) {
+  getRepl(id: $replId) {
+    ... on Repl {
+      id
+      config {
+        isWebDesignMockup
+      }
+    }
+  }
+}
+    `;e.s(["useGetWebDesignMockupQuery",0,function(e){let t={...r,...e};return a.useQuery(i,t)}])},159425,e=>{"use strict";var t=e.i(509838),a=e.i(211719);e.s(["useIsAgentWebDesignMockup",0,function(){let e=(0,a.default)(),{data:r,loading:i}=(0,t.useGetWebDesignMockupQuery)({variables:{replId:e??""},skip:null===e});return{isWebDesignMockup:r?.getRepl?.__typename==="Repl"&&(r.getRepl.config?.isWebDesignMockup??!1),loading:i}}])},946860,e=>{"use strict";var t=e.i(276385),a=e.i(534141),r=e.i(87046),i=e.i(536262),n=e.i(295231);e.s(["PlanningChatActionMenuItems",0,function({chatId:e,onStartRename:s,onArchive:l,onRestore:o}){return(0,t.jsxs)(t.Fragment,{children:[s?(0,t.jsx)(n.MenuItem,{label:"Rename",icon:(0,t.jsx)(a.default,{}),onAction:s}):null,l?(0,t.jsx)(n.MenuItem,{label:"Archive",icon:(0,t.jsx)(r.default,{}),onAction:()=>l(e)}):null,o?(0,t.jsx)(n.MenuItem,{label:"Restore",icon:(0,t.jsx)(i.default,{}),onAction:()=>o(e)}):null]})}])},316831,e=>{"use strict";var t=e.i(276385),a=e.i(389959);e.i(293163);var r=e.i(429733),i=e.i(855496),n=e.i(5484),s=e.i(776801),l=e.i(844430);let o=(0,a.memo)(function({chat:e,replId:a,size:r}){let i=(0,n.usePlanningSessionHasProposedTasks)(a,e.id),s=c(e);return(0,t.jsx)(u,{isWorking:s,hasProposedTasks:i,size:r})});function u({isWorking:e,hasProposedTasks:a,size:r=16}){return(0,t.jsx)(l.BlockSpinner,{...d(e,a),size:r})}function d(e,t){return e?s.TASK_SPINNERS.planning:t?s.TASK_SPINNERS.planned:s.TASK_SPINNERS.draft}function c(e){let{data:t}=(0,i.useAgent)(e.agentId);return t?.status===r.AgentStatus.RUNNING}e.s(["PlanningChatIcon",0,o,"PlanningChatStatusIcon",0,u,"getPlanningChatSpinner",0,d,"usePlanningAgentWorking",0,c])},73509,e=>{"use strict";var t=e.i(276385),a=e.i(96250),r=e.i(183035),i=e.i(602686),n=e.i(534141),s=e.i(105068),l=e.i(82130);e.i(316283);var o=e.i(544854),u=e.i(955410);e.i(214847);var d=e.i(864300),c=e.i(695798),p=e.i(46085),g=e.i(312549),f=e.i(295231);e.s(["TaskActionMenuItems",0,function({task:e,onMerge:m,onReplan:A,onReviewChanges:I,onStartRename:M,onCancel:E,onCancelApplyingChanges:h,isCancellingApplyingChanges:v,setIsCancellingApplyingChanges:P,isMerging:T,setIsMerging:y,isReplanning:D,setIsReplanning:R,hideMergeAction:_=!1,isCancelDisabled:x=!1}){let b=(0,d.useIntl)(),{trackClick:C}=(0,u.useTrackClick)(),k=!0===v,w=(0,c.useWorkspaceHasRepl)(),S=e.kind===o.TaskKind.SECURITY_SCAN,O=!w&&null!=e.subreplRunId&&(0,g.canStopTask)(e),L=!_&&!!m&&(0,g.canMergeTask)(e),U=!w&&!!A&&(0,g.canReplanTask)(e),j=!!I&&(0,g.canReviewTask)(e),F=!!h&&(0,g.canCancelApplyingChanges)(e),N=!!(M||j||O||F||U||E&&(0,g.canCancelTask)(e));return(0,t.jsxs)(t.Fragment,{children:[L?(0,t.jsx)(f.MenuItem,{label:T?"Applying changes…":"Apply changes",icon:(0,t.jsx)(r.default,{}),isDisabled:T,onAction:async()=>{if(m){C({productArea:p.TASKS_PRODUCT_AREA,target:p.TaskClickTarget.APPLY_CHANGES_MENU_ITEM,properties:{task_id:e.id,task_state:e.state}}),y(!0);try{await m(e.id)}finally{y(!1)}}}}):null,L&&N?(0,t.jsx)(f.Separator,{}):null,M?(0,t.jsx)(f.MenuItem,{label:b.formatMessage({id:"workspace.renameTask",defaultMessage:"Rename"}),icon:(0,t.jsx)(n.default,{}),isDisabled:S,description:S?b.formatMessage({id:"workspace.renameTaskSecurityScanHint",defaultMessage:"Security scans keep their given name"}):void 0,onAction:M}):null,j?(0,t.jsx)(f.MenuItem,{label:"Review changes",icon:(0,t.jsx)(s.default,{}),onAction:()=>{I?.(e.id)}}):null,O?(0,t.jsx)(f.MenuItem,{label:"Stop",icon:(0,t.jsx)(l.default,{}),isDisabled:!0}):null,F?(0,t.jsx)(f.MenuItem,{label:k?"Cancelling…":"Cancel applying changes",icon:(0,t.jsx)(i.default,{}),isDisabled:k,onAction:async()=>{if(h){C({productArea:p.TASKS_PRODUCT_AREA,target:p.TaskClickTarget.CANCEL_MENU_ITEM,properties:{task_id:e.id,task_state:e.state}}),P?.(!0);try{await h(e.id)}finally{P?.(!1)}}}}):null,U?(0,t.jsx)(f.MenuItem,{label:D?"Re-planning…":"Re-plan",icon:(0,t.jsx)(a.default,{}),isDisabled:D,onAction:async()=>{if(A){C({productArea:p.TASKS_PRODUCT_AREA,target:p.TaskClickTarget.REPLAN_MENU_ITEM,properties:{task_id:e.id,task_state:e.state}}),R?.(!0);try{await A(e.id)}finally{R?.(!1)}}}}):null,E&&(0,g.canCancelTask)(e)?(0,t.jsx)(f.MenuItem,{label:"Cancel",icon:(0,t.jsx)(i.default,{}),isDisabled:x,onAction:()=>{C({productArea:p.TASKS_PRODUCT_AREA,target:p.TaskClickTarget.CANCEL_MENU_ITEM,properties:{task_id:e.id,task_state:e.state}}),E(e.id)}}):null]})}])},869034,e=>{"use strict";var t=e.i(389959),a=e.i(312549);function r(e,t){let r=new Map;for(let e of t)r.set(e.id,e.state);let i=new Set((function(e){let t=new Map;for(let r of e){if(!(0,a.isStandaloneFollowUpTask)(r))continue;let e=t.get(r.createdAt);e?e.push(r):t.set(r.createdAt,[r])}let r="",i=[];for(let[e,a]of t)e>r&&(r=e,i=a);return i.some(e=>"CANCELLED"!==e.state&&"MERGED"!==e.state)&&i.length<=4?i:[]})(t).map(e=>e.id)),n=new Map;for(let e of t)e.proposedFromTaskId&&n.set(e.proposedFromTaskId,(n.get(e.proposedFromTaskId)??0)+1);let s=[];for(let t of e)"PROPOSED"===t.state&&(null!=t.proposedFromTaskId&&"MERGED"===r.get(t.proposedFromTaskId)&&(n.get(t.proposedFromTaskId)??0)<=4||i.has(t.id))&&s.push(t);return s.sort((e,t)=>t.createdAt.localeCompare(e.createdAt)),s}e.s(["getSuggestedTaskCountsById",0,function(e){let t=new Map;for(let a of e){let e=a.proposedFromTaskId??`standalone:${a.createdAt}`;t.set(e,(t.get(e)??0)+1)}return new Map(e.map(e=>[e.id,t.get(e.proposedFromTaskId??`standalone:${e.createdAt}`)??1]))},"selectFollowUpDrafts",0,r,"useFollowUpTasks",0,function(e,a){return(0,t.useMemo)(()=>r(e,a),[e,a])}])},474586,e=>{"use strict";var t=e.i(351623),a=e.i(344480);e.i(975473);let r={},i=t.gql`
+    query IsMultiplayerProject($replId: String!) {
+  getRepl(id: $replId) {
+    ... on Repl {
+      id
+      config {
+        isMultiplayerProject
+      }
+    }
+  }
+}
+    `;e.s(["useIsMultiplayerProjectQuery",0,function(e){let t={...r,...e};return a.useQuery(i,t)}])},633123,e=>{"use strict";var t=e.i(474586);e.s(["useIsMultiplayerProject",0,function(e){let{data:a,loading:r}=(0,t.useIsMultiplayerProjectQuery)({variables:{replId:e}});return{isMultiplayerProject:a?.getRepl?.__typename==="Repl"&&(a.getRepl.config?.isMultiplayerProject??!1),loading:r}}])},867919,e=>{"use strict";var t=e.i(389959),a=e.i(797562),r=e.i(570438),i=e.i(815881),n=e.i(633123);function s({replId:e,allTasks:i,planningChats:l,enabled:o=!0,resolvePlanningChatCreators:u=!0}){var d;let c=(0,r.normalizeCurrentUserId)((0,r.useCurrentUserId)()),{isMultiplayerProject:p,loading:g}=(0,n.useIsMultiplayerProject)(e),[f]=(0,a.useSetMultiplayerProjectMutation)(),m=o&&!p&&!g,A=(d=o&&u,(0,t.useMemo)(()=>{let e=new Map;if(!d)return e;for(let t of l)e.set(t.id,t.thread.createdBy);return e},[d,l])),I=(0,t.useRef)(!1),M=(0,t.useMemo)(()=>{if(p)return I.current=!0,!0;if(I.current)return!0;if(!m||null==c)return!1;for(let e of i)if(function(e,t){return e.events.some(e=>e.userId!==t)}(e,c))return I.current=!0,!0;if(u)for(let e of l){let t=A.get(e.id);if(null!=t&&t!==c)return I.current=!0,!0}return!1},[i,c,p,A,l,u,m]),E=(0,t.useRef)(!1);return(0,t.useEffect)(()=>{!M||p||E.current||(E.current=!0,f({variables:{input:{id:e,isMultiplayerProject:!0}},optimisticResponse:{__typename:"RootMutationType",updateRepl:{__typename:"UpdateReplPayload",repl:{__typename:"Repl",id:e,config:{__typename:"ReplConfig",isMultiplayerProject:!0}}}}}))},[M,p,e,f]),{isMultiplayer:M,planningChatCreatorUserIds:A}}e.s(["useProjectMultiplayer",0,function(e){let{tasks:t}=(0,i.useAllTasks)(e.replId,"");return s({...e,allTasks:t})},"useProjectMultiplayerFromTasks",0,s])},151369,e=>{"use strict";var t=e.i(36163);async function a(e){return e.thread.createdBy}e.s(["getPlanningChatCreatorUserId",0,a,"usePlanningChatCreatorUserId",0,function(e,t){return t&&e?e.thread.createdBy:null},"usePlanningChatLastActivity",0,function(e,t=!0){if(!t)return null;let a=new Date(e.thread.updatedAt);return Number.isNaN(a.getTime())?null:a},"usePlanningChatTitle",0,function(e){return e.thread.title},"usePlanningChatTitleById",0,function(e){return(0,t.usePlanningChatById)(e)?.thread.title??null}])},5484,e=>{"use strict";var t=e.i(165007),a=e.i(202276);e.i(121908);var r=e.i(815845),i=e.i(312549);e.s(["usePlanningSessionHasProposedTasks",0,function(e,n){let s=(0,r.useTasksCollection)(),{data:l}=(0,a.useLiveQuery)(a=>e&&n?a.from({taskItems:s}).where(a=>(0,t.and)((0,t.eq)(a.taskItems.replId,e),(0,t.eq)(a.taskItems.state,"PROPOSED"),(0,t.or)((0,t.eq)(a.taskItems.planningSessionId,n),(0,t.eq)(a.taskItems.threadId,n)))).select(({taskItems:e})=>({proposedFromTaskId:e.proposedFromTaskId,dependencyIds:e.dependencyIds,tags:e.tags})):null,[n,e,s]);return(l??[]).some(e=>!(0,i.isStandaloneFollowUpTask)(e))}])},797562,e=>{"use strict";var t=e.i(351623),a=e.i(299020);let r={},i=t.gql`
+    mutation SetMultiplayerProject($input: UpdateReplInput!) {
+  updateRepl(input: $input) {
+    repl {
+      id
+      config {
+        isMultiplayerProject
+      }
+    }
+  }
+}
+    `;e.s(["useSetMultiplayerProjectMutation",0,function(e){let t={...r,...e};return a.useMutation(i,t)}])},410073,e=>{"use strict";var t=e.i(351623),a=e.i(344480);e.i(975473);let r={},i=t.gql`
+    query TaskCreatorUser($userId: Int!) {
+  user(id: $userId) {
+    id
+    username
+    fullName
+    image
+  }
+}
+    `;e.s(["useTaskCreatorUserQuery",0,function(e){let t={...r,...e};return a.useQuery(i,t)}])},557684,e=>{"use strict";var t=e.i(410073);function a(e){let t=e.find(e=>"APPROVED"===e.event);return t?t.userId:null}e.s(["getTaskApproverUserId",0,a,"getTaskAttribution",0,function(e,t){let r,i=e.events.find(e=>"MERGED"===e.event),n=e.events.find(e=>"CANCELLED"===e.event),s=i??n;if(s)return{userId:s.userId,label:i?t.formatMessage({id:"workspace.taskAttributionAppliedBy",defaultMessage:"Applied by"}):t.formatMessage({id:"workspace.taskAttributionCancelledBy",defaultMessage:"Cancelled by"})};let l=a(e.events);if(null!=l)return{userId:l,label:t.formatMessage({id:"workspace.taskAttributionAcceptedBy",defaultMessage:"Accepted by"})};let o=(r=e.events.find(e=>"CREATED"===e.event))?r.userId:null;return null!=o?{userId:o,label:t.formatMessage({id:"workspace.taskAttributionCreatedBy",defaultMessage:"Created by"})}:{userId:null,label:""}},"useCreatorUser",0,function(e){let{data:a}=(0,t.useTaskCreatorUserQuery)({variables:{userId:e??0},skip:null==e});if(a?.user)return{username:a.user.username,fullName:a.user.fullName,image:a.user.image??null}}])},310231,e=>{"use strict";e.s(["getTaskTimestamp",0,function(e){let t,a,r=Date.parse(e.createdAt),i=Date.parse(e.updatedAt),n=NaN;for(let t of e.events){let e=Date.parse(t.createdAt);Number.isFinite(e)&&(!Number.isFinite(n)||e>n)&&(n=e)}if(Number.isFinite(n)&&n>i)t=n,a=new Date(n).toISOString();else{if(!Number.isFinite(i))return{label:"Created",value:e.createdAt};t=i,a=e.updatedAt}return Number.isFinite(r)&&t>r?{label:"Updated",value:a}:{label:"Created",value:e.createdAt}}])},242591,e=>{"use strict";var t=e.i(389959),a=e.i(866782);e.s(["useOverflowState",0,function(e){let r=(0,t.useRef)(null),i=e??r,[n,s]=(0,t.useState)(!1),[l,o]=(0,t.useState)(!1),[u,d]=(0,t.useState)(!1);return(0,t.useEffect)(()=>{let e=i.current;if(!e)return;let t=()=>{let{scrollTop:t,scrollHeight:a,clientHeight:r}=e;s(t>0),o(a-t-r>1),d(a>r)},r=!1,n=!1,l=()=>{n||(n=!0,(0,a.rafRead)(()=>{!r&&n&&(n=!1,t())}))};l();let u=new ResizeObserver(()=>{n=!1,t()});u.observe(e);let c=new MutationObserver(l);return c.observe(e,{childList:!0,subtree:!0,characterData:!0}),e.addEventListener("scroll",l),()=>{r=!0,u.disconnect(),c.disconnect(),e.removeEventListener("scroll",l)}},[i]),{containerRef:i,hasTopOverflow:n,hasBottomOverflow:l,isTruncated:u}}])}]);
+
+//# debugId=bfbc7d8b-1717-ed97-b312-6e6b7a0a3c64
+//# sourceMappingURL=2cre-2shlcvvw.js.map
